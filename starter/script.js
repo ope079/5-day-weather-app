@@ -63,9 +63,8 @@ function historyFunction(){
 $("#search-form").on("submit", function(event){
     event.preventDefault()
 
-    let searchInput = $("#search-input").val()
-console.log(searchInput)
-
+    let searchInput = $("#search-input").text()
+    
     let countryQueryUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${searchInput}&limit=1&appid=${apiKey}`
 
     // Add the history to local storage
@@ -77,7 +76,6 @@ console.log(searchInput)
     $("#history").prepend(button)
 
     $.ajax({url : countryQueryUrl}).then(function(response){
-
         let lat = response[0].lat
         let lon = response[0].lon
         
