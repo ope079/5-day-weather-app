@@ -1,4 +1,4 @@
-apiKey = "e6a7e2d17f01690a1f7665bfa3295ba7"
+apiKey = "b5657f205b6b0f7351867ba9e56f2a2c"
 
 const history = JSON.parse(localStorage.getItem('history')) || [];
 
@@ -27,7 +27,7 @@ function ajaxQuery(queryUrl){
             const weatherForecast = weatherList[i]
 
             let weatherForecastEL = $(` <div class="col-sm"><h1> ${moment(weatherForecast.dt_txt, "YYYY-MM-DD HHHH").format("DD/MM/YYYY")} </h1>
-                                    <img src="${`http://openweathermap.org/img/w/${weatherForecast.weather[0].icon}.png`}"  alt="Weather icon">
+                                    <img src="${`https://openweathermap.org/img/w/${weatherForecast.weather[0].icon}.png`}"  alt="Weather icon">
                                     <p> Temp: ${weatherForecast.main.temp} &#8451</p>
                                     <p> Wind: ${weatherForecast.wind.speed} KPH </p> 
                                     <p> Humidity: ${weatherForecast.main.humidity}% </p></div> `)
@@ -45,14 +45,14 @@ function historyFunction(){
         event.preventDefault()
         let historySearchInput = $(this).text()
 
-        let countryQueryUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${historySearchInput}&limit=1&appid=${apiKey}`
+        let countryQueryUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${historySearchInput}&limit=1&appid=${apiKey}`
         
         $.ajax({url : countryQueryUrl}).then(function(response){
 
             let lat = response[0].lat
             let lon = response[0].lon
             
-            let queryUrl = `http://api.openweathermap.org/data/2.5/forecast?units=metric&lat=${lat}&lon=${lon}&appid=${apiKey}`
+            let queryUrl = `https://api.openweathermap.org/data/2.5/forecast?units=metric&lat=${lat}&lon=${lon}&appid=${apiKey}`
     
             ajaxQuery(queryUrl)            
         })     
@@ -63,7 +63,7 @@ function historyFunction(){
 $("#search-form").on("submit", function(event){
     event.preventDefault()
 
-    let searchInput = $("#search-input").text()
+    let searchInput = $("#search-input").val
     
     let countryQueryUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${searchInput}&limit=1&appid=${apiKey}`
 
@@ -79,7 +79,7 @@ $("#search-form").on("submit", function(event){
         let lat = response[0].lat
         let lon = response[0].lon
         
-        let queryUrl = `http://api.openweathermap.org/data/2.5/forecast?units=metric&lat=${lat}&lon=${lon}&appid=${apiKey}`
+        let queryUrl = `https://api.openweathermap.org/data/2.5/forecast?units=metric&lat=${lat}&lon=${lon}&appid=${apiKey}`
 
 
         ajaxQuery(queryUrl)
@@ -91,11 +91,13 @@ $("#search-form").on("submit", function(event){
 
 
 // perform this to show history buttons
+if(history)(
 history.forEach(function(element){
     let button = $("<button>").attr("class", "class='list-group-item'")
     button.text(element)
     $("#history").prepend(button)
     historyFunction()
 })
+)
 
 historyFunction()
