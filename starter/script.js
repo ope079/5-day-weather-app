@@ -63,7 +63,7 @@ function historyFunction(){
 $("#search-form").on("submit", function(event){
     event.preventDefault()
 
-    let searchInput = $("#search-input").val
+    let searchInput = $("#search-input").val()
     
     let countryQueryUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${searchInput}&limit=1&appid=${apiKey}`
 
@@ -91,7 +91,7 @@ $("#search-form").on("submit", function(event){
 
 
 // perform this to show history buttons
-if(history)(
+if(history.length > 0)(
 history.forEach(function(element){
     let button = $("<button>").attr("class", "class='list-group-item'")
     button.text(element)
