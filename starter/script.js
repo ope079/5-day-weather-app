@@ -1,4 +1,4 @@
-apiKey = "b5657f205b6b0f7351867ba9e56f2a2c"
+let apiKey = "b5657f205b6b0f7351867ba9e56f2a2c"
 
 const history = JSON.parse(localStorage.getItem('history')) || [];
 
